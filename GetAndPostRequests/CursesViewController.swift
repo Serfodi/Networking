@@ -9,60 +9,93 @@ import UIKit
 
 class CursesViewController: UITableViewController {
     
+    private var courses = [Course]()
+    private var courseName: String?
+    private var courseURL: String?
+    private let url = "https://swiftbook.ru//wp-content/uploads/api/api_courses"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         fetchData()
     }
     
+    
     func fetchData() {
-        
-//        let jsonUrlString = "https://swiftbook.ru//wp-content/uploads/api/api_course"
-        
-//        let jsonUrlString  = "https://swiftbook.ru//wp-content/uploads/api/api_courses"
-        
-//        let jsonUrlString  = "https://swiftbook.ru/wp-content/uploads/api/api_website_description"
-        
-        let jsonUrlString  = "https://swiftbook.ru/wp-content/uploads/api/api_missing_or_wrong_fields"
-        
-        guard let url = URL(string: jsonUrlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            guard let data = data else { return }
-            
-            do {
-                let websiteDescription = try JSONDecoder().decode(WebsiteDescription.self, from: data)
-                print(websiteDescription)
-            } catch let error {
-                print("Error serialization json", error)
+        NetworkManager.fetchData(url: url) { courses in
+            self.courses = courses
+            DispatchQueue.main.async {
+                self.tableView.reloadData() 
             }
+        }
+    }
+
+    
+    private func configureCell(cell: TableViewCell, for indexPatch: IndexPath) {
+        
+        let course = courses[indexPatch.row]
+        
+        cell.courseNameLabel.text = course.name
+        
+        if let courseNumberOfLessons = course.numberOfLessons {
+            cell.numberOfLessons.text = "Number of lessons: \(courseNumberOfLessons)"
+        }
+        if let courseNumberOfTests = course.numberOfTests {
+            cell.numberOfTests.text = "Number of test: \(courseNumberOfTests)"
+        }
+        
+        DispatchQueue.global().async {
+            guard let imageUrl = URL(string: course.imageUrl!) else { return }
+            guard let imageData = try? Data(contentsOf: imageUrl) else { return }
             
-            
-        }.resume()
+            DispatchQueue.main.async {
+                cell.courseImageVeiw.image = UIImage(data: imageData)
+            }
+        }
+        
     }
     
-
-    /*
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+     
+        let webViewControoler = segue.destination as! WebViewController
+        
+        if let url = courseURL {
+            webViewControoler.courseUrl = url
+        }
+        
     }
-    */
+    
 
 }
 
-//extension CursesViewController: UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//
-//}
-//
-//extension CursesViewController: UITableViewDelegate {
-//
-//}
+extension CursesViewController {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return courses.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! TableViewCell
+        
+        configureCell(cell: cell, for: indexPath)
+        
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let course = courses[indexPath.row]
+        courseURL = course.link
+        courseName = course.name
+        
+        performSegue(withIdentifier: "Description", sender: self)
+    }
+    
+}
+
+
