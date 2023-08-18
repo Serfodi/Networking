@@ -21,6 +21,7 @@
 		1728B5982A8BB85E00C33DA8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1728B5972A8BB85E00C33DA8 /* MainViewController.swift */; };
 		1728B59A2A8BB87400C33DA8 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1728B5992A8BB87400C33DA8 /* CollectionViewCell.swift */; };
 		1728B59C2A8C017200C33DA8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1728B59B2A8C017200C33DA8 /* NetworkManager.swift */; };
+		1728B59E2A8FD06E00C33DA8 /* ImageProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1728B59D2A8FD06E00C33DA8 /* ImageProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		1728B5972A8BB85E00C33DA8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1728B5992A8BB87400C33DA8 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		1728B59B2A8C017200C33DA8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		1728B59D2A8FD06E00C33DA8 /* ImageProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProperties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				1728B58D2A7EB02E00C33DA8 /* CursesViewController.swift */,
 				1728B5952A814BAA00C33DA8 /* WebViewController.swift */,
 				1728B58F2A7EB12E00C33DA8 /* Course.swift */,
+				1728B59D2A8FD06E00C33DA8 /* ImageProperties.swift */,
 				1728B5912A7EB91D00C33DA8 /* WebsiteDescription.swift */,
 				1728B5932A81410B00C33DA8 /* TableViewCell.swift */,
 				1728B57D2A7D62D100C33DA8 /* Main.storyboard */,
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1728B59E2A8FD06E00C33DA8 /* ImageProperties.swift in Sources */,
 				1728B59C2A8C017200C33DA8 /* NetworkManager.swift in Sources */,
 				1728B5922A7EB91D00C33DA8 /* WebsiteDescription.swift in Sources */,
 				1728B5962A814BAA00C33DA8 /* WebViewController.swift in Sources */,
